@@ -1,0 +1,64 @@
+generator client {
+category MenuCategory @relation(fields: [categoryId], references: [id])
+categoryId String
+name String
+description String?
+price Float
+imageUrl String?
+allergens String?
+available Boolean @default(true)
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+}
+
+
+model "Order" {
+id String @id @default(cuid())
+table Table @relation(fields: [tableId], references: [id])
+tableId String
+restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+restaurantId String
+status String @default("pending")
+totalAmount Float @default(0)
+items OrderItem[]
+payment Payment?
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+}
+
+
+model OrderItem {
+id String @id @default(cuid())
+order "Order" @relation(fields: [orderId], references: [id])
+orderId String
+menuItem MenuItem @relation(fields: [menuItemId], references: [id])
+menuItemId String
+quantity Int
+price Float
+notes String?
+}
+
+
+model Payment {
+id String @id @default(cuid())
+order "Order" @relation(fields: [orderId], references: [id])
+orderId String @unique
+amount Float
+method String
+status String
+paymentRef String?
+createdAt DateTime @default(now())
+}
+
+
+model User {
+id String @id @default(cuid())
+restaurant Restaurant? @relation(fields: [restaurantId], references: [id])
+restaurantId String?
+name String
+email String @unique
+passwordHash String
+role String @default("staff")
+createdAt DateTime @default(now())
+updatedAt DateTime @updatedAt
+}
