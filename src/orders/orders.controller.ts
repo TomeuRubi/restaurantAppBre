@@ -1,11 +1,14 @@
 import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
 
 
 @Controller('orders')
 export class OrdersController {
-    @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles('client', 'staff')
     @Post()
     create(@Body() createOrderDto: CreateOrderDto, @Request() req) {
         const user = req.user;

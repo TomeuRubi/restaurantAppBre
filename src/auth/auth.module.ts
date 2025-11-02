@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { PrismaService } from '../prisma/prisma.service';
+import { RolesGuard } from './roles.guard';
 
 
 @Module({
@@ -18,7 +19,7 @@ signOptions: { expiresIn: '7d' },
 }),
 ],
 controllers: [AuthController],
-providers: [AuthService, JwtStrategy, PrismaService],
-exports: [AuthService],
+providers: [AuthService, JwtStrategy, PrismaService, RolesGuard],
+exports: [AuthService, RolesGuard],
 })
 export class AuthModule {}
