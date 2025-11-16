@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString, IsEmail, IsOptional } from 'class-validator';
 export class CreateRestaurantDto {
 @IsString()
 @IsNotEmpty()
-name: string;
+name: string | undefined;
 
 
 @IsString()

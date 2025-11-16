@@ -11,11 +11,12 @@ COPY package*.json ./
 
 # Instalar TODAS las dependencias (incluye las de desarrollo)
 RUN npm install
-
-# Copiar todo el código fuente
 COPY . .
+# Copiar el esquema Prisma y el resto del código
+COPY prisma ./prisma
 
-# Generar cliente Prisma
+
+# Generar cliente Prisma (ahora sí encuentra el schema)
 RUN npx prisma generate
 
 # Exponer puerto del servidor NestJS

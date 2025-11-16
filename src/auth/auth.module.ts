@@ -4,22 +4,22 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from '../prisma.service';
 import { RolesGuard } from './roles.guard';
 
 
 @Module({
-imports: [
-PassportModule,
-JwtModule.registerAsync({
-useFactory: () => ({
-secret: process.env.JWT_SECRET || 'secretKey',
-signOptions: { expiresIn: '7d' },
-}),
-}),
-],
-controllers: [AuthController],
-providers: [AuthService, JwtStrategy, PrismaService, RolesGuard],
-exports: [AuthService, RolesGuard],
+    imports: [
+        PassportModule,
+        JwtModule.registerAsync({
+            useFactory: () => ({
+                secret: process.env.JWT_SECRET || 'secretKey',
+                signOptions: { expiresIn: '7d' },
+            }),
+        }),
+    ],
+    controllers: [AuthController],
+    providers: [AuthService, JwtStrategy, PrismaService, RolesGuard],
+    exports: [AuthService, RolesGuard],
 })
-export class AuthModule {}
+export class AuthModule { }

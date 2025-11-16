@@ -1,29 +1,31 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { IsEmail, IsString, MinLength } from 'class-validator';
+
 
 class LoginDto {
     @IsEmail()
-    email: string;
+    email!: string;
 
 
     @IsString()
     @MinLength(6)
-    password: string;
-    }
+    password!: string;
+}
 
 
-    class SignupDto {
+export class SignupDto {
     @IsString()
-    name: string;
+    name!: string;
 
 
     @IsEmail()
-    email: string;
+    email!: string;
 
 
     @IsString()
     @MinLength(6)
-    password: string;
+    password: string = "";
 
 
     @IsString()
@@ -33,7 +35,7 @@ class LoginDto {
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
 
     @Post('login')

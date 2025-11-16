@@ -4,15 +4,15 @@ import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class TablesService {
-constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
 
-create(data: any) {
-return this.prisma.table.create({ data });
-}
+    create(data: any) {
+        return this.prisma.table.create({ data });
+    }
 
 
-findByRestaurant(restaurantId: string) {
-return this.prisma.table.findMany({ where: { restaurantId } });
-}
+    findByRestaurant(restaurantId: string) {
+        return this.prisma.table.findMany({ where: { restaurantId } });
+    }
 }
